@@ -1,0 +1,24 @@
+{
+  "name": "techtalk",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Gustavo Melo <gcmelo@sp.r7.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "backbone": "~1.2.3",
+    "angular": "~1.4.7",
+    "react": "~0.14.0"
+  }
+}
