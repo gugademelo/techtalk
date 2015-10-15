@@ -1,19 +1,30 @@
-module.exports = function (grunt) {
-
-  grunt.loadNpmTasks('grunt-react');
+module.exports = function(grunt) {
+  'use strict';
+  var npmTasks = [
+    'grunt-contrib-watch',
+    'grunt-react'
+  ];
 
   grunt.initConfig({
     react: {
       single_file_output: {
         files: {
-          'reactjs/main.js': 'reactjs/jsx/main.jsx'
+          'reactjs/scripts/main.js': 'reactjs/scripts/main.jsx'
+        }
+      }
+    },
+    watch: {
+      scripts: {
+        files: '**/*.jsx',
+        tasks: ['react'],
+        options: {
+          spawn: false
         }
       }
     }
   });
-  grunt.registerTask('default', function (target) {
-    grunt.task.run([
-      'react'
-    ]);
-  });
-}
+
+  for (var ind = 0; ind < npmTasks.length; ind++) {
+    grunt.loadNpmTasks(npmTasks[ind]);
+  }
+};
