@@ -20,7 +20,6 @@ var CommentsCollection = Backbone.Collection.extend({
 
       }
     });
-
     return this;
   }
 });
@@ -29,6 +28,10 @@ var CommentItemView = Backbone.View.extend({
   tagName: 'li',
   template: _.template($('#comment-template').html()),
 
+  events: {
+    'click .remove': 'removeItself'
+  },
+
   initialize: function(options) {
     this.model = options.model;
   },
@@ -36,6 +39,10 @@ var CommentItemView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
     return this;
+  },
+
+  removeItself: function() {
+    this.el.remove();
   }
 });
 
@@ -55,18 +62,25 @@ var CommentsView = Backbone.View.extend({
     });
 
     $('#app-container').html(this.$el);
+  },
+
+  addOne: function(commentModel) {
+    var commentView = new CommentItemView({ model: commentModel });
+    this.$el.append(commentView.render().$el);
   }
 
 });
 
 var comments, app;
-comments = new CommentsCollection().fetch({
+comments = new CommentsCollection();
+comments.fetch({
   success: function(coll) {
     app = new CommentsView({ collection: coll });
   }
 });
 
-$('.new-comment-form').on('submit', function() {
+$('.new-comment-form').submit(function(e) {
+  e.preventDefault();
   var data = $(this).serializeArray(),
       newComment = new Comment();
 
@@ -76,5 +90,5 @@ $('.new-comment-form').on('submit', function() {
     newComment.set(map);
   }
 
-  debugger
+  app.addOne(newComment);
 });
