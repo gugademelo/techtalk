@@ -9,8 +9,19 @@
 </head>
 <body>
 <script type="template/underscore" id="comment-template">
-  <p>teste</p>
+  <p><%= name %></p>
+  <p><%= comment %></p>
 </script>
+<div id="app-container"></div>
+<div class="new-comment">
+  <form action="#" class="new-comment-form">
+    <label for="name">Nome</label>
+    <input type="text" name="name">
+    <label for="comment">Comentário</label>
+    <textarea name="comment" cols="30" rows="10"></textarea>
+    <input type="submit" value="Comentar">
+  </form>
+</div>
 <script src="main.js"></script>
 </body>
 </html>
