@@ -66,6 +66,7 @@ var CommentsView = Backbone.View.extend({
 
   addOne: function(commentModel) {
     var commentView = new CommentItemView({ model: commentModel });
+    this.collection.add(commentModel);
     this.$el.append(commentView.render().$el);
   }
 
@@ -89,6 +90,8 @@ $('.new-comment-form').submit(function(e) {
     map[data[i].name] = data[i].value;
     newComment.set(map);
   }
+
+  this.reset();
 
   app.addOne(newComment);
 });
