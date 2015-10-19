@@ -30,7 +30,7 @@
 
     render: function() {
       return (
-        <div className="commentBox">
+        <div className="comment-box">
           <h1>Comentários React</h1>
           <App.CommentList data={this.state.data} />
           <App.CommentForm onCommentSubmit={this.handleCommentSubmit} />
@@ -96,7 +96,7 @@
           <h2 className="commentAuthor">
             {this.props.author}
           </h2>
-          {this.props.children}
+          <p>{this.props.children}</p>
           <button onClick={this.removeItem}>Remover</button>
         </div>
       );

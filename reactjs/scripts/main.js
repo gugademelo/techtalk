@@ -35,7 +35,7 @@
     render: function render() {
       return React.createElement(
         'div',
-        { className: 'commentBox' },
+        { className: 'comment-box' },
         React.createElement(
           'h1',
           null,
@@ -116,7 +116,11 @@
           { className: 'commentAuthor' },
           this.props.author
         ),
-        this.props.children,
+        React.createElement(
+          'p',
+          null,
+          this.props.children
+        ),
         React.createElement(
           'button',
           { onClick: this.removeItem },
