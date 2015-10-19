@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="commentApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Tech Talk Boladona</title>
+  <script src="/bower_components/react/react.min.js"></script>
+  <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+</head>
+<body>
+  <div id="content" ng-controller="CommentsController as App">
+    <div class="comment-box">
+      <h1>Comentários Angular</h1>
+
+      <div className="comment-list" ng-repeat="comment in App.comments">
+        <div className="comment">
+          <h2 className="commentAuthor">
+            {{comment.name}}
+          </h2>
+          <p>{{comment.comment}}</p>
+          <button ng-click="App.removeComment(comment)">Remover</button>
+        </div>
+      </div>
+
+      <form className="commentForm" ng-submit="App.addComment()">
+        <input ng-model="App.newName" type="text" placeholder="Nome"/>
+        <textarea ng-model="App.newComment" placeholder="Comentario"></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="scripts/main.js"></script>
+</body>
+</html>
