@@ -60,7 +60,7 @@
       });
       return React.createElement(
         'div',
-        { className: 'App.commentList' },
+        { className: 'comment-list' },
         commentNodes
       );
     }
@@ -102,6 +102,11 @@
   App.SingleCommit = React.createClass({
     displayName: 'SingleCommit',
 
+    removeItem: function removeItem() {
+      // FIX ME, unmount do react not working here
+      var elem = this.getDOMNode();
+      elem.parentNode.removeChild(elem);
+    },
     render: function render() {
       return React.createElement(
         'div',
@@ -111,7 +116,12 @@
           { className: 'commentAuthor' },
           this.props.author
         ),
-        this.props.children
+        this.props.children,
+        React.createElement(
+          'button',
+          { onClick: this.removeItem },
+          'Remover'
+        )
       );
     }
   });

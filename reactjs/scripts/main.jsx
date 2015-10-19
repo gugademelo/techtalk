@@ -49,7 +49,7 @@
         );
       });
       return (
-        <div className="App.commentList">
+        <div className="comment-list">
           {commentNodes}
         </div>
       );
@@ -85,6 +85,11 @@
   });
 
   App.SingleCommit = React.createClass({
+    removeItem: function() {
+      // FIX ME, unmount do react not working here
+      var elem = this.getDOMNode();
+      elem.parentNode.removeChild(elem);
+    },
     render: function() {
       return (
         <div className="comment">
@@ -92,6 +97,7 @@
             {this.props.author}
           </h2>
           {this.props.children}
+          <button onClick={this.removeItem}>Remover</button>
         </div>
       );
     }
