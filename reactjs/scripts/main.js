@@ -1,12 +1,11 @@
 'use strict';
 
-(function (root) {
+(function () {
   'use strict';
-  // $.get('/json/comments.json',function(data, err){
 
-  // });
+  var App = {};
 
-  var CommentBox = React.createClass({
+  App.CommentBox = React.createClass({
     displayName: 'CommentBox',
 
     getInitialState: function getInitialState() {
@@ -25,6 +24,14 @@
         }).bind(this)
       });
     },
+
+    handleCommentSubmit: function handleCommentSubmit(comment) {
+      var comments = this.state.data,
+          newComments = comments.concat([comment]);
+
+      this.setState({ data: newComments });
+    },
+
     render: function render() {
       return React.createElement(
         'div',
@@ -32,47 +39,68 @@
         React.createElement(
           'h1',
           null,
-          'Comments'
+          'Comentários React'
         ),
-        React.createElement(CommentList, { data: this.state.data }),
-        React.createElement(CommentForm, null)
+        React.createElement(App.CommentList, { data: this.state.data }),
+        React.createElement(App.CommentForm, { onCommentSubmit: this.handleCommentSubmit })
       );
     }
   });
 
-  var CommentList = React.createClass({
+  App.CommentList = React.createClass({
     displayName: 'CommentList',
 
     render: function render() {
       var commentNodes = this.props.data.map(function (message) {
         return React.createElement(
-          Comment,
+          App.SingleCommit,
           { author: message.name },
           message.comment
         );
       });
       return React.createElement(
         'div',
-        { className: 'commentList' },
+        { className: 'App.commentList' },
         commentNodes
       );
     }
   });
 
-  var CommentForm = React.createClass({
+  App.CommentForm = React.createClass({
     displayName: 'CommentForm',
+
+    handleSubmit: function handleSubmit(e) {
+      e.preventDefault();
+      var name = this.refs.name.value.trim(),
+          comment = this.refs.comment.value.trim();
+
+      if (!name || !comment) {
+        return;
+      }
+      // Send the new data, update the comments entry, erase the form data
+      this.props.onCommentSubmit({ name: name, comment: comment });
+      this.refs.name.value = '';
+      this.refs.comment.value = '';
+      return;
+    },
 
     render: function render() {
       return React.createElement(
-        'div',
-        { className: 'commentForm' },
-        'Hello, world! I am a CommentForm.'
+        'form',
+        { className: 'commentForm', onSubmit: this.handleSubmit },
+        React.createElement('input', { ref: 'name', type: 'text', placeholder: 'Nome' }),
+        React.createElement('textarea', { ref: 'comment', placeholder: 'Comentario' }),
+        React.createElement(
+          'button',
+          { type: 'submit' },
+          'Enviar'
+        )
       );
     }
   });
 
-  var Comment = React.createClass({
-    displayName: 'Comment',
+  App.SingleCommit = React.createClass({
+    displayName: 'SingleCommit',
 
     render: function render() {
       return React.createElement(
@@ -88,6 +116,6 @@
     }
   });
 
-  ReactDOM.render(React.createElement(CommentBox, { url: '/json/comments.json' }), document.getElementById('content'));
+  ReactDOM.render(React.createElement(App.CommentBox, { url: '/json/comments.json' }), document.getElementById('content'));
 })(window);
 //# sourceMappingURL=main.js.map
